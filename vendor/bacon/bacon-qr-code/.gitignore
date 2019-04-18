@@ -1,0 +1,9 @@
+composer.lock
+vendor
+nbproject
+.idea
+.buildpath
+.project
+.DS_Store
+.*.sw*
+.*.un~
