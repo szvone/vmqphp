@@ -63,9 +63,9 @@ class Index
             "todayOrder"=>$todayOrder,
             "todaySuccessOrder"=>$todaySuccessOrder,
             "todayCloseOrder"=>$todayCloseOrder,
-            "todayMoney"=>$todayMoney,
+            "todayMoney"=>round($todayMoney,2),
             "countOrder"=>$countOrder,
-            "countMoney"=>$countMoney,
+            "countMoney"=>round($countMoney),
         )));
 
     }
@@ -233,6 +233,9 @@ class Index
                 if ($res['state']==0){
                     Db::name("tmp_price")->where("price",($res['really_price']*100)."-".$res['type'])->delete();
                 }
+
+                Db::name("pay_order")->where("id",$res['id'])->update(array("state"=>1));
+
                 return json($this->getReturn());
             }else{
                 return json($this->getReturn(-2,"补单失败",$re));
