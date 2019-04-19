@@ -115,9 +115,6 @@ class Index
         Db::name("setting")->where("vkey","notifyUrl")->update(array("vvalue"=>input("notifyUrl")));
         Db::name("setting")->where("vkey","returnUrl")->update(array("vvalue"=>input("returnUrl")));
         Db::name("setting")->where("vkey","key")->update(array("vvalue"=>input("key")));
-        Db::name("setting")->where("vkey","lastheart")->update(array("vvalue"=>input("lastheart")));
-        Db::name("setting")->where("vkey","lastpay")->update(array("vvalue"=>input("lastpay")));
-        Db::name("setting")->where("vkey","jkstate")->update(array("vvalue"=>input("jkstate")));
         Db::name("setting")->where("vkey","close")->update(array("vvalue"=>input("close")));
         Db::name("setting")->where("vkey","payQf")->update(array("vvalue"=>input("payQf")));
         Db::name("setting")->where("vkey","wxpay")->update(array("vvalue"=>input("wxpay")));
