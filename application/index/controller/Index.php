@@ -355,7 +355,9 @@ class Index
                 return json($this->getReturn(-1, "订单状态不允许关闭"));
             }
             Db::name("pay_order")->where("order_id",$orderId)->update(array("state"=>-1,"close_date"=>time()));
-            Db::name("tmp_price")->where("price",($res['really_price']*100)."-".$res['type'])->delete();
+            Db::name("tmp_price")
+                ->where("price",round((round($res['really_price'],2)*100))."-".$res['type'])
+                ->delete();
             return json($this->getReturn(1, "成功"));
         }else{
             return json($this->getReturn(-1, "云端订单编号不存在"));
@@ -411,6 +413,8 @@ class Index
     }
     //App推送付款数据接口
     public function appPush(){
+        $this->closeEndOrder();
+
         $res2 = Db::name("setting")->where("vkey","key")->find();
         $key = $res2['vvalue'];
         $t = input("t");
@@ -445,7 +449,10 @@ class Index
 
 
         if ($res){
-            Db::name("tmp_price")->where("price",($res['really_price']*100)."-".$res['type'])->delete();
+            Db::name("tmp_price")
+                ->where("price",round((round($res['really_price'],2)*100))."-".$res['type'])
+                ->delete();
+
             Db::name("pay_order")->where("id",$res['id'])->update(array("state"=>1,"pay_date"=>time(),"close_date"=>time()));
 
             $url = $res['notify_url'];
@@ -520,7 +527,7 @@ class Index
         if ($res){
             $rows = Db::name("pay_order")->where("close_date",$close_date)->select();
             foreach ($rows as $row){
-                Db::name("tmp_price")->where("price",($row['really_price']*100)."-".$row['type'])->delete();
+                Db::name("tmp_price")->where("price",round((round($row['really_price'],2)*100))."-".$row['type'])->delete();
             }
             return json($this->getReturn(1,"成功清理".$res."条订单"));
         }else{

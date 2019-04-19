@@ -87,13 +87,13 @@
 
 
     <!--<div class="layui-form-item layui-form-text">-->
-        <!--<label class="layui-form-label">设置进入网站的提示</label>-->
-        <!--<div class="layui-input-block">-->
-            <!--<textarea placeholder="请输入公告内容" id="xz" class="layui-textarea"></textarea>-->
-        <!--</div>-->
+    <!--<label class="layui-form-label">设置进入网站的提示</label>-->
+    <!--<div class="layui-input-block">-->
+    <!--<textarea placeholder="请输入公告内容" id="xz" class="layui-textarea"></textarea>-->
+    <!--</div>-->
     <!--</div>-->
     <!--<div class="layui-form-item">-->
-        <!--<button class="layui-btn" onclick="editxz()">保存</button>-->
+    <!--<button class="layui-btn" onclick="editxz()">保存</button>-->
     <!--</div>-->
 </div>
 
@@ -253,25 +253,31 @@
         });
     }
 
-    $.post("admin/index/getSettings",function (data) {
-        console.log(data);
-        if (data.code==1){
-            $("#user").val(data.data.user);
-            $("#pass").val(data.data.pass);
-            $("#notifyUrl").val(data.data.notifyUrl);
-            $("#returnUrl").val(data.data.returnUrl);
-            $("#key").val(data.data.key);
-            $("#close").val(data.data.close);
-            $("#payQf").val(data.data.payQf);
+
+    function getstate(){
+        $.post("admin/index/getSettings",function (data) {
+            console.log(data);
+            if (data.code==1){
+                $("#user").val(data.data.user);
+                $("#pass").val(data.data.pass);
+                $("#notifyUrl").val(data.data.notifyUrl);
+                $("#returnUrl").val(data.data.returnUrl);
+                $("#key").val(data.data.key);
+                $("#close").val(data.data.close);
+                $("#payQf").val(data.data.payQf);
 
 
-            if (data.data.wxpay!=""){
-                $('#wximg').attr('src', "enQrcode?url="+data.data.wxpay);
+                if (data.data.wxpay!=""){
+                    $('#wximg').attr('src', "enQrcode?url="+data.data.wxpay);
+                }
+                if (data.data.zfbpay!=""){
+                    $('#zfbimg').attr('src', "enQrcode?url="+data.data.zfbpay);
+                }
+                layui.form.render();
+
+
             }
-            if (data.data.zfbpay!=""){
-                $('#zfbimg').attr('src', "enQrcode?url="+data.data.zfbpay);
-            }
-            layui.form.render();
-        }
-    });
+        });
+    }
+    getstate();
 </script>
