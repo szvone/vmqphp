@@ -77,16 +77,16 @@ CREATE TABLE `setting` (
 INSERT INTO `setting` (`vkey`, `vvalue`) VALUES
 ('user', 'admin'),
 ('pass', 'admin'),
-('notifyUrl', 'http://localhost/vmqphp/public/example/notify.php'),
-('returnUrl', 'http://localhost/vmqphp/public/example/return.php'),
-('key', 'aa15188ce0f1d97018524d9862ef2a46'),
-('lastheart', '1555558911'),
-('lastpay', '1555558922'),
-('jkstate', '1'),
+('notifyUrl', ''),
+('returnUrl', ''),
+('key', ''),
+('lastheart', '0'),
+('lastpay', '0'),
+('jkstate', '-1'),
 ('close', '5'),
-('payQf', '2'),
-('wxpay', 'https://wx.tenpay.com/f2f?t=AQAAAFBMn0EWn1SRYFD3TVwO6Ng='),
-('zfbpay', 'HTTPS://QR.ALIPAY.COM/FKX04656BY2XHJXXLRFKF1');
+('payQf', '1'),
+('wxpay', ''),
+('zfbpay', '');
 
 -- --------------------------------------------------------
 
