@@ -356,7 +356,7 @@ class Index
             }
             Db::name("pay_order")->where("order_id",$orderId)->update(array("state"=>-1,"close_date"=>time()));
             Db::name("tmp_price")
-                ->where("price",round((round($res['really_price'],2)*100))."-".$res['type'])
+                ->where("price",bcmul(round($res['really_price'],2),100)."-".$res['type'])
                 ->delete();
             return json($this->getReturn(1, "成功"));
         }else{
@@ -449,8 +449,9 @@ class Index
 
 
         if ($res){
+
             Db::name("tmp_price")
-                ->where("price",round((round($res['really_price'],2)*100))."-".$res['type'])
+                ->where("price",bcmul(round($res['really_price'],2),100)."-".$res['type'])
                 ->delete();
 
             Db::name("pay_order")->where("id",$res['id'])->update(array("state"=>1,"pay_date"=>time(),"close_date"=>time()));
@@ -527,7 +528,9 @@ class Index
         if ($res){
             $rows = Db::name("pay_order")->where("close_date",$close_date)->select();
             foreach ($rows as $row){
-                Db::name("tmp_price")->where("price",round((round($row['really_price'],2)*100))."-".$row['type'])->delete();
+                Db::name("tmp_price")
+                    ->where("price",bcmul(round($row['really_price'],2),100)."-".$row['type'])
+                    ->delete();
             }
             return json($this->getReturn(1,"成功清理".$res."条订单"));
         }else{
