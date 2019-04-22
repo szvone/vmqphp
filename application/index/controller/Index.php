@@ -215,7 +215,10 @@ class Index
             return json($this->getReturn(-1, "请您先进入后台配置程序"));
         }
         $isAuto = 1;
-        $_payUrl = Db::name("pay_qrcode")->where("price", $reallyPrice)->find();
+        $_payUrl = Db::name("pay_qrcode")
+            ->where("price", $reallyPrice)
+            ->where("type", $type)
+            ->find();
         if ($_payUrl) {
             $payUrl = $_payUrl['pay_url'];
             $isAuto = 0;
