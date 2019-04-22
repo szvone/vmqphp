@@ -200,7 +200,15 @@ class Index
         if (!Session::has("admin")){
             return json($this->getReturn(-1,"没有登录"));
         }
+        $res = Db::name("pay_order")->where("id",input("id"))->find();
+
         Db::name("pay_order")->where("id",input("id"))->delete();
+        if ($res['state']==0){
+            Db::name("tmp_price")
+                ->where("price",bcmul(round($res['really_price'],2),100)."-".$res['type'])
+                ->delete();
+        }
+
         return json($this->getReturn());
 
     }
