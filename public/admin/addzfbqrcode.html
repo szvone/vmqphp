@@ -70,6 +70,7 @@
                 layer.msg("等待所有二维码识别完毕后手动输入金额，输入完成后点击保存二维码")
                 //读取本地文件
                 obj.preview(function(index, file, result){
+                    /*
                     $.post("qr-code/test.php","base64="+encodeURIComponent(result.split(",")[1]),function (data) {
                         console.log(data)
                         if (!data.data) {
@@ -81,6 +82,15 @@
                             data: imgs
                         });
                     });
+                    */
+                    qrcode.decode(getObjectURL(file),result);
+                    qrcode.callback = function(imgMsg,img64) {
+
+                        imgs.push({"index":imgs.length,"money":"","b64":img64,"url":imgMsg});
+                        mytable.reload({
+                            data: imgs
+                        });
+                    }
 
                 });
             }

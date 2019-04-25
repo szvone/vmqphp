@@ -78,16 +78,26 @@
 
                 //读取本地文件
                 obj.preview(function(index, file, result){
-                    $.post("qr-code/test.php","base64="+encodeURIComponent(result.split(",")[1]),function (data) {
-                        console.log(data)
-                        if (!data.data) {
-                            data = JSON.parse(data);
-                        }
-                        imgs.push({"index":imgs.length,"money":"","b64":result,"url":data.data});
+                    // $.post("qr-code/test.php","base64="+encodeURIComponent(result.split(",")[1]),function (data) {
+                    //     console.log(data)
+                    //     if (!data.data) {
+                    //         data = JSON.parse(data);
+                    //     }
+                    //     imgs.push({"index":imgs.length,"money":"","b64":result,"url":data.data});
+                    //     mytable.reload({
+                    //         data: imgs
+                    //     });
+                    // });
+                    //console.log(index)
+
+                    qrcode.decode(getObjectURL(file),result);
+                    qrcode.callback = function(imgMsg,img64) {
+
+                        imgs.push({"index":imgs.length,"money":"","b64":img64,"url":imgMsg});
                         mytable.reload({
                             data: imgs
                         });
-                    });
+                    }
 
                 });
             }

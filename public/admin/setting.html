@@ -114,6 +114,18 @@
         var uploadInst = upload.render({
             elem: '#wxup'
             , url: 'qr-code/test.php'
+            ,auto: false
+            ,choose: function(obj){
+                console.log(obj)
+                obj.preview(function(index, file, result){
+                    qrcode.decode(getObjectURL(file));
+                    qrcode.callback = function(imgMsg) {
+                        console.log(imgMsg)
+                        $('#wximg').attr('src', "enQrcode?url="+imgMsg);
+                    }
+                });
+
+            }
             , before: function (obj) {
                 layer.msg('处理中', {
                     icon: 16
@@ -147,6 +159,18 @@
         var uploadInst2 = upload.render({
             elem: '#zfbup'
             , url: 'qr-code/test.php'
+            ,auto: false
+            ,choose: function(obj){
+                console.log(obj)
+                obj.preview(function(index, file, result){
+                    qrcode.decode(getObjectURL(file));
+                    qrcode.callback = function(imgMsg) {
+                        console.log(imgMsg)
+                        $('#zfbimg').attr('src', "enQrcode?url="+imgMsg);
+                    }
+                });
+
+            }
             , before: function (obj) {
                 layer.msg('处理中', {
                     icon: 16

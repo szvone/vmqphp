@@ -107,9 +107,19 @@
     });
 </script>
 <script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
+<script src="js/llqrcode.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-
+    function getObjectURL(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) {
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) {
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) {
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    }
 
 $("#LAY_preview").load("main.html")
 
