@@ -1466,7 +1466,7 @@ qrcode.decode = function (d,b64) {
             try {
                 qrcode.imagedata = h.getImageData(0, 0, i.width, i.height)
             } catch (m) {
-                qrcode.result = "Cross domain image reading not supported in your browser! Save it to your computer then drag and drop the file!";
+                qrcode.result = "";
                 if (qrcode.callback != null) {
                     qrcode.callback(qrcode.result,b64)
                 }
@@ -1476,7 +1476,7 @@ qrcode.decode = function (d,b64) {
                 qrcode.result = qrcode.process(h)
             } catch (m) {
                 console.log(m);
-                qrcode.result = "error decoding QR Code"
+                qrcode.result = ""
             }
             if (qrcode.callback != null) {
                 qrcode.callback(qrcode.result,b64)
@@ -1484,7 +1484,7 @@ qrcode.decode = function (d,b64) {
         };
         c.onerror = function () {
             if (qrcode.callback != null) {
-                qrcode.callback("Failed to load the image")
+                qrcode.callback("")
             }
         };
         c.src = d

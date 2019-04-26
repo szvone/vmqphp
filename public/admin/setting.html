@@ -121,7 +121,29 @@
                     qrcode.decode(getObjectURL(file));
                     qrcode.callback = function(imgMsg) {
                         console.log(imgMsg)
-                        $('#wximg').attr('src', "enQrcode?url="+imgMsg);
+                        if(imgMsg!=""){
+                            $('#wximg').attr('src', "enQrcode?url="+imgMsg);
+                        }else{
+                            layer.msg('处理中', {
+                                icon: 16
+                                ,shade: 0.01
+                                ,time:0
+                            });
+
+                            $.post("qr-code/test.php","base64="+encodeURIComponent(result.split(",")[1]),function (data) {
+                                console.log(data)
+                                if (!data.data) {
+                                    data = JSON.parse(data);
+                                }
+                                if (data.code==1){
+                                    $('#wximg').attr('src', "enQrcode?url="+data.data);
+                                    layer.msg('处理成功');
+                                } else{
+                                    return layer.msg('处理失败');
+                                }
+
+                            });
+                        }
                     }
                 });
 
@@ -166,7 +188,28 @@
                     qrcode.decode(getObjectURL(file));
                     qrcode.callback = function(imgMsg) {
                         console.log(imgMsg)
-                        $('#zfbimg').attr('src', "enQrcode?url="+imgMsg);
+                        if(imgMsg!=""){
+                            $('#zfbimg').attr('src', "enQrcode?url="+imgMsg);
+                        }else{
+                            layer.msg('处理中', {
+                                icon: 16
+                                ,shade: 0.01
+                                ,time:0
+                            });
+                            $.post("qr-code/test.php","base64="+encodeURIComponent(result.split(",")[1]),function (data) {
+                                console.log(data)
+                                if (!data.data) {
+                                    data = JSON.parse(data);
+                                }
+                                if (data.code==1){
+                                    $('#zfbimg').attr('src', "enQrcode?url="+data.data);
+                                    layer.msg('处理成功');
+                                } else{
+                                    return layer.msg('处理失败');
+                                }
+
+                            });
+                        }
                     }
                 });
 

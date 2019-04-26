@@ -85,11 +85,26 @@
                     */
                     qrcode.decode(getObjectURL(file),result);
                     qrcode.callback = function(imgMsg,img64) {
+                        if (imgMsg==""){
+                            $.post("qr-code/test.php","base64="+encodeURIComponent(img64.split(",")[1]),function (data) {
+                                console.log(data)
+                                if (!data.data) {
+                                    data = JSON.parse(data);
+                                }
 
-                        imgs.push({"index":imgs.length,"money":"","b64":img64,"url":imgMsg});
-                        mytable.reload({
-                            data: imgs
-                        });
+                                imgs.push({"index":imgs.length,"money":"","b64":img64,"url":data.data});
+                                mytable.reload({
+                                    data: imgs
+                                });
+                            });
+                        } else{
+                            imgs.push({"index":imgs.length,"money":"","b64":img64,"url":imgMsg});
+                            mytable.reload({
+                                data: imgs
+                            });
+                        }
+
+
                     }
 
                 });
