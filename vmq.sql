@@ -95,7 +95,9 @@ INSERT INTO `setting` (`vkey`, `vvalue`) VALUES
 --
 
 CREATE TABLE `tmp_price` (
-  `price` varchar(255) NOT NULL
+  `price` varchar(255) NOT NULL,
+  `oid` varchar(255) NOT NULL
+
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --

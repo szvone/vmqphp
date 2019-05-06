@@ -179,11 +179,13 @@ class Index
         $payQf = $payQf['vvalue'];
 
 
+        $orderId = date("YmdHms") . rand(1, 9) . rand(1, 9) . rand(1, 9) . rand(1, 9);
 
         $ok = false;
         for ($i = 0; $i < 10; $i++) {
+            $tmpPrice = $reallyPrice . "-" . $type;
 
-            $row = Db::execute("INSERT IGNORE INTO tmp_price (price) VALUES ('" . $reallyPrice . "-" . $type . "')");
+            $row = Db::execute("INSERT IGNORE INTO tmp_price (price,oid) VALUES ('" . $tmpPrice . "','".$orderId."')");
             if ($row) {
                 $ok = true;
                 break;
@@ -200,7 +202,7 @@ class Index
         }
         //echo $reallyPrice;
 
-        $reallyPrice = bcdiv($reallyPrice, 100, 2);
+        $reallyPrice = bcdiv($reallyPrice, 100);
 
         if ($type == 1) {
             $payUrl = Db::name("setting")->where("vkey", "wxpay")->find();
@@ -231,7 +233,6 @@ class Index
         }
 
 
-        $orderId = date("YmdHms") . rand(1, 9) . rand(1, 9) . rand(1, 9) . rand(1, 9);
 
 
         $createDate = time();
@@ -359,7 +360,7 @@ class Index
             }
             Db::name("pay_order")->where("order_id",$orderId)->update(array("state"=>-1,"close_date"=>time()));
             Db::name("tmp_price")
-                ->where("price",bcmul(round($res['really_price'],2),100)."-".$res['type'])
+                ->where("oid",$res['order_id'])
                 ->delete();
             return json($this->getReturn(1, "成功"));
         }else{
@@ -454,7 +455,7 @@ class Index
         if ($res){
 
             Db::name("tmp_price")
-                ->where("price",bcmul(round($res['really_price'],2),100)."-".$res['type'])
+                ->where("oid",$res['order_id'])
                 ->delete();
 
             Db::name("pay_order")->where("id",$res['id'])->update(array("state"=>1,"pay_date"=>time(),"close_date"=>time()));
@@ -532,7 +533,7 @@ class Index
             $rows = Db::name("pay_order")->where("close_date",$close_date)->select();
             foreach ($rows as $row){
                 Db::name("tmp_price")
-                    ->where("price",bcmul(round($row['really_price'],2),100)."-".$row['type'])
+                    ->where("oid",$row['order_id'])
                     ->delete();
             }
             return json($this->getReturn(1,"成功清理".$res."条订单"));
