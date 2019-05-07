@@ -202,7 +202,7 @@ class Index
         }
         //echo $reallyPrice;
 
-        $reallyPrice = bcdiv($reallyPrice, 100);
+        $reallyPrice = bcdiv($reallyPrice, 100,2);
 
         if ($type == 1) {
             $payUrl = Db::name("setting")->where("vkey", "wxpay")->find();

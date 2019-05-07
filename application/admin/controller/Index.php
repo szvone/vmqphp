@@ -205,7 +205,7 @@ class Index
         Db::name("pay_order")->where("id",input("id"))->delete();
         if ($res['state']==0){
             Db::name("tmp_price")
-                ->where("price",bcmul(round($res['really_price'],2),100)."-".$res['type'])
+                ->where("oid",$res['order_id'])
                 ->delete();
         }
 
@@ -236,7 +236,9 @@ class Index
             $re = $this->getCurl($url."?".$p);
             if ($re=="success"){
                 if ($res['state']==0){
-                    Db::name("tmp_price")->where("price",($res['really_price']*100)."-".$res['type'])->delete();
+                    Db::name("tmp_price")
+                        ->where("oid",$res['order_id'])
+                        ->delete();
                 }
 
                 Db::name("pay_order")->where("id",$res['id'])->update(array("state"=>1));
