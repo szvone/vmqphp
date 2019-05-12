@@ -333,8 +333,15 @@ class Index
             $sign = $res['pay_id'].$res['param'].$res['type'].$res['price'].$res['really_price'].$key;
             $p = $p . "&sign=".md5($sign);
 
+            $url = $res['return_url'];
 
-            return json($this->getReturn(1, "成功", $res['return_url']."?".$p));
+            if (strpos($url,"?")===false){
+                $url = $url."?".$p;
+            }else{
+                $url = $url.$p;
+            }
+
+            return json($this->getReturn(1, "成功", $url));
         }else{
             return json($this->getReturn(-1, "云端订单编号不存在"));
         }
@@ -470,8 +477,14 @@ class Index
             $sign = $res['pay_id'].$res['param'].$res['type'].$res['price'].$res['really_price'].$key;
             $p = $p . "&sign=".md5($sign);
 
+            if (strpos($url,"?")===false){
+                $url = $url."?".$p;
+            }else{
+                $url = $url.$p;
+            }
 
-            $re = $this->getCurl($url."?".$p);
+
+            $re = $this->getCurl($url);
             if ($re=="success"){
                 return json($this->getReturn());
             }else{

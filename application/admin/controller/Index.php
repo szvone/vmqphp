@@ -231,9 +231,14 @@ class Index
 
             $sign = $res['pay_id'].$res['param'].$res['type'].$res['price'].$res['really_price'].$key;
             $p = $p . "&sign=".md5($sign);
+            if (strpos($url,"?")===false){
+                $url = $url."?".$p;
+            }else{
+                $url = $url.$p;
+            }
 
+            $re = $this->getCurl($url);
 
-            $re = $this->getCurl($url."?".$p);
             if ($re=="success"){
                 if ($res['state']==0){
                     Db::name("tmp_price")
