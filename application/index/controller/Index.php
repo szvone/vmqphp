@@ -335,7 +335,7 @@ class Index
 
             $url = $res['return_url'];
 
-            
+
 
             if (strpos($url,"?")===false){
                 $url = $url."?".$p;
