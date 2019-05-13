@@ -340,7 +340,7 @@ class Index
             if (strpos($url,"?")===false){
                 $url = $url."?".$p;
             }else{
-                $url = $url.$p;
+                $url = $url."&".$p;
             }
 
             return json($this->getReturn(1, "成功", $url));
@@ -482,7 +482,7 @@ class Index
             if (strpos($url,"?")===false){
                 $url = $url."?".$p;
             }else{
-                $url = $url.$p;
+                $url = $url."&".$p;
             }
 
 

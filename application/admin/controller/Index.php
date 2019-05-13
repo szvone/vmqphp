@@ -234,7 +234,7 @@ class Index
             if (strpos($url,"?")===false){
                 $url = $url."?".$p;
             }else{
-                $url = $url.$p;
+                $url = $url."&".$p;
             }
 
             $re = $this->getCurl($url);
