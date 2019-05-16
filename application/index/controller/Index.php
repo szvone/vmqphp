@@ -551,6 +551,20 @@ class Index
                     ->where("oid",$row['order_id'])
                     ->delete();
             }
+
+            $rows = Db::name("tmp_price")->select();
+            foreach ($rows as $row){
+                $re = Db::name("pay_order")->where("order_id",$row['oid'])->find();
+                if ($re){
+
+                }else{
+                    Db::name("tmp_price")
+                        ->where("oid",$row['oid'])
+                        ->delete();
+                }
+            }
+
+
             return json($this->getReturn(1,"成功清理".$res."条订单"));
         }else{
             return json($this->getReturn(1,"没有等待清理的订单"));
