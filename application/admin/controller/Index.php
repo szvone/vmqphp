@@ -1,6 +1,7 @@
 <?php
 namespace app\admin\controller;
 
+use think\App;
 use think\Db;
 use think\facade\Session;
 use app\service\QrcodeServer;
