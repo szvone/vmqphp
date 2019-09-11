@@ -92,6 +92,7 @@
 
                     qrcode.decode(getObjectURL(file),result);
                     qrcode.callback = function(imgMsg,img64) {
+                        console.log(imgMsg);
 
                         if (imgMsg==""){
                             $.post("qr-code/test.php","base64="+encodeURIComponent(img64.split(",")[1]),function (data) {

@@ -62,6 +62,13 @@ class Index
         $v = Db::query("SELECT VERSION();");
         $v=$v[0]['VERSION()'];
 
+        if(function_exists("gd_info")) {
+            $gd_info = @gd_info();
+            $gd = $gd_info["GD Version"];
+        }else{
+            $gd = '<font color="red">GD库未开启！</font>';
+        }
+        
         return json($this->getReturn(1,"成功",array(
             "todayOrder"=>$todayOrder,
             "todaySuccessOrder"=>$todaySuccessOrder,
@@ -77,6 +84,7 @@ class Index
             "Thinkphp"=>"v".App::VERSION,
             "RunTime"=>$this->sys_uptime(),
             "ver"=>"v1.9",
+            "gd"=>$gd,
         )));
 
     }

@@ -94,10 +94,17 @@
         <td><b>ThinkPHP版本</b></td>
         <td id="Thinkphp"></td>
     </tr>
+
+    <tr>
+        <td><b>GD库版本</b></td>
+        <td id="gd"></td>
+    </tr>
+
     <tr>
         <td><b>主程序版本</b></td>
         <td id="ver"></td>
     </tr>
+
     <tr>
         <td><b>运行时间</b></td>
         <td id="RunTime"></td>
@@ -137,5 +144,6 @@
         $("#Thinkphp").html(data.data.Thinkphp);
         $("#RunTime").html(data.data.RunTime);
         $("#ver").html(data.data.ver);
+        $("#gd").html(data.data.gd);
     });
 </script>

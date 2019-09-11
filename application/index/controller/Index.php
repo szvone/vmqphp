@@ -418,10 +418,10 @@ class Index
             return json($this->getReturn(-1, "签名校验不通过"));
         }
 
-        $jg = time()*1000 - $t;
-        if ($jg>50000 || $jg<-50000){
-            return json($this->getReturn(-1, "客户端时间错误"));
-        }
+//        $jg = time()*1000 - $t;
+//        if ($jg>50000 || $jg<-50000){
+//            return json($this->getReturn(-1, "客户端时间错误"));
+//        }
 
         Db::name("setting")->where("vkey","lastheart")->update(array("vvalue"=>time()));
         Db::name("setting")->where("vkey","jkstate")->update(array("vvalue"=>1));
@@ -443,10 +443,10 @@ class Index
             return json($this->getReturn(-1, "签名校验不通过"));
         }
 
-        $jg = time()*1000 - $t;
-        if ($jg>50000 || $jg<-50000){
-            return json($this->getReturn(-1, "客户端时间错误"));
-        }
+//        $jg = time()*1000 - $t;
+//        if ($jg>50000 || $jg<-50000){
+//            return json($this->getReturn(-1, "客户端时间错误"));
+//        }
 
         Db::name("setting")
             ->where("vkey","lastpay")
