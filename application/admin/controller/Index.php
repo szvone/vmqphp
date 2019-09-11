@@ -70,9 +70,9 @@ class Index
             "countOrder"=>$countOrder,
             "countMoney"=>round($countMoney),
 
-            "PHP_VERSION"=>PHP_VERSION,
+            "PHP_VERSION"=>"v".PHP_VERSION,
             "PHP_OS"=>PHP_OS,
-            "SERVER"=>"v".$_SERVER ['SERVER_SOFTWARE'],
+            "SERVER"=>$_SERVER ['SERVER_SOFTWARE'],
             "MySql"=>"v".$v,
             "Thinkphp"=>"v".App::VERSION,
             "RunTime"=>$this->sys_uptime(),
