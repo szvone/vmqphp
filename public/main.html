@@ -68,6 +68,43 @@
     </div>
 </div>
 
+<table class="layui-table" lay-skin="" >
+    <colgroup>
+        <col width="150">
+        <col>
+    </colgroup>
+    <tbody>
+    <tr>
+        <td><b>操作系统</b></td>
+        <td id="PHP_OS"></td>
+    </tr>
+    <tr>
+        <td><b>服务器引擎</b></td>
+        <td id="SERVER"></td>
+    </tr>
+    <tr>
+        <td><b>PHP版本</b></td>
+        <td id="PHP_VERSION"></td>
+    </tr>
+    <tr>
+        <td><b>MySQL版本</b></td>
+        <td id="MySql"></td>
+    </tr>
+    <tr>
+        <td><b>ThinkPHP版本</b></td>
+        <td id="Thinkphp"></td>
+    </tr>
+    <tr>
+        <td><b>主程序版本</b></td>
+        <td id="ver"></td>
+    </tr>
+    <tr>
+        <td><b>运行时间</b></td>
+        <td id="RunTime"></td>
+    </tr>
+    </tbody>
+</table>
+
 <style>
     .panel_box{ margin-bottom:5px;}
     .panel{ text-align:center; height:90px;}
@@ -93,5 +130,12 @@
         $("#countMoney").html(data.data.countMoney);
         $("#todayMoney").html(data.data.todayMoney);
 
+        $("#PHP_VERSION").html(data.data.PHP_VERSION);
+        $("#PHP_OS").html(data.data.PHP_OS);
+        $("#SERVER").html(data.data.SERVER);
+        $("#MySql").html(data.data.MySql);
+        $("#Thinkphp").html(data.data.Thinkphp);
+        $("#RunTime").html(data.data.RunTime);
+        $("#ver").html(data.data.ver);
     });
 </script>

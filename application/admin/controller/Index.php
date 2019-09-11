@@ -58,6 +58,8 @@ class Index
             ->where("state >=1")
             ->sum("price");
 
+        $v = Db::query("SELECT VERSION();");
+        $v=$v[0]['VERSION()'];
 
         return json($this->getReturn(1,"成功",array(
             "todayOrder"=>$todayOrder,
@@ -66,8 +68,31 @@ class Index
             "todayMoney"=>round($todayMoney,2),
             "countOrder"=>$countOrder,
             "countMoney"=>round($countMoney),
+
+            "PHP_VERSION"=>PHP_VERSION,
+            "PHP_OS"=>PHP_OS,
+            "SERVER"=>$_SERVER ['SERVER_SOFTWARE'],
+            "MySql"=>$v,
+            "Thinkphp"=>App::VERSION,
+            "RunTime"=>$this->sys_uptime(),
+            "ver"=>"1.0.0",
         )));
 
+    }
+    private function sys_uptime() {
+        $output='';
+        if (false === ($str = @file("/proc/uptime"))) return false;
+        $str = explode(" ", implode("", $str));
+        $str = trim($str[0]);
+        $min = $str / 60;
+        $hours = $min / 60;
+        $days = floor($hours / 24);
+        $hours = floor($hours - ($days * 24));
+        $min = floor($min - ($days * 60 * 24) - ($hours * 60));
+        if ($days !== 0) $output .= $days."天";
+        if ($hours !== 0) $output .= $hours."小时";
+        if ($min !== 0) $output .= $min."分钟";
+        return $output;
     }
 
     public function getSettings(){

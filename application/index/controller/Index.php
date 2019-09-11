@@ -8,7 +8,10 @@ class Index
 {
     public function index()
     {
-        return 'by:vone';
+        $url = "http://www.5cctv.net/wp-content/plugins/erphpdown/payment/vmq/notify.php?payId=190717101020112222981&param=order[7876632]&type=1&price=1&reallyPrice=1&sign=2398a2492db0616381a85c1fedc51a11";
+        return $this->getCurl($url);
+
+        //return 'by:vone';
     }
 
     public function getReturn($code = 1, $msg = "成功", $data = null)
