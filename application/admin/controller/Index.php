@@ -76,7 +76,7 @@ class Index
             "MySql"=>$v,
             "Thinkphp"=>App::VERSION,
             "RunTime"=>$this->sys_uptime(),
-            "ver"=>"1.0.0",
+            "ver"=>"1.9",
         )));
 
     }
