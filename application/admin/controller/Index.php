@@ -72,11 +72,11 @@ class Index
 
             "PHP_VERSION"=>PHP_VERSION,
             "PHP_OS"=>PHP_OS,
-            "SERVER"=>$_SERVER ['SERVER_SOFTWARE'],
-            "MySql"=>$v,
-            "Thinkphp"=>App::VERSION,
+            "SERVER"=>"v".$_SERVER ['SERVER_SOFTWARE'],
+            "MySql"=>"v".$v,
+            "Thinkphp"=>"v".App::VERSION,
             "RunTime"=>$this->sys_uptime(),
-            "ver"=>"1.9",
+            "ver"=>"v1.9",
         )));
 
     }
