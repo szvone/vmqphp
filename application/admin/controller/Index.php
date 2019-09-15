@@ -83,7 +83,7 @@ class Index
             "MySql"=>$v,
             "Thinkphp"=>"v".App::VERSION,
             "RunTime"=>$this->sys_uptime(),
-            "ver"=>"v1.9.1",
+            "ver"=>"v1.10",
             "gd"=>$gd,
         )));
 
@@ -120,7 +120,12 @@ class Index
         $payQf = Db::name("setting")->where("vkey","payQf")->find();
         $wxpay = Db::name("setting")->where("vkey","wxpay")->find();
         $zfbpay = Db::name("setting")->where("vkey","zfbpay")->find();
-
+        if ($key['vvalue']==""){
+            $key['vvalue'] = md5(time());
+            Db::name("setting")->where("vkey","key")->update(array(
+                "vvalue"=>$key['vvalue']
+            ));
+        }
 
         return json($this->getReturn(1,"成功",array(
             "user"=>$user['vvalue'],

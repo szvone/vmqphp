@@ -579,7 +579,7 @@ class Index
 
 
     //发送Http请求
-    function getCurl($url, $post = 0, $cookie = 0, $header = 0, $nobaody = 0)
+    private function getCurl($url, $post = 0, $cookie = 0, $header = 0, $nobaody = 0)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
