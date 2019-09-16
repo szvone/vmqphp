@@ -127,6 +127,22 @@ $.post("getMenu",function (data) {
     if (data == null || data == "" || data.code==-1) {
         window.location.href = "index.html";
     }
+    setTimeout(function () {
+        $.post("admin/index/checkUpdate",function (data) {
+            if (data.code==1) {
+
+                layer.confirm(data.msg, {
+                    btn: ['去看看','算啦'],
+                    title:"有更新啦"
+                }, function(){
+                    window.location.href = data.data;
+                });
+
+            }
+        });
+    },2000);
+
+
     console.log(data);
     var out_menu = "";
     for (var i = 0;i<data.length;i++){
