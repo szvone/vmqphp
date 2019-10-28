@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 ini_set ('memory_limit', '256M');
 header("Content-type:text/html;charset=utf-8");
 
@@ -8,6 +9,8 @@ if(!isset($_SESSION['think'])){
     echo "error";
     exit();
 }
+
+
 function getCurl($url, $post = 0, $cookie = 0, $header = 0, $nobaody = 0)
 {
     $ch = curl_init();
@@ -42,19 +45,21 @@ function getCurl($url, $post = 0, $cookie = 0, $header = 0, $nobaody = 0)
 }
 
 
-if (isset($_POST['base64'])){
-    $b64 = $_POST['base64'];
-    $s = base64_decode($b64);
-    $img_path = './image/'.md5($s).'.jpg';
-    file_put_contents($img_path, $s,LOCK_EX);
-}else{
-    $s = file_get_contents($_FILES["file"]["tmp_name"]);
-    $img_path = './image/'.md5($s).'.jpg';
-    file_put_contents($img_path, $s,LOCK_EX);
-}
-$url='http://'.$_SERVER['SERVER_NAME'].str_replace("/test.php","",$_SERVER["REQUEST_URI"]).str_replace("./","/",$img_path);
 
 try{
+    if (isset($_POST['base64'])){
+        $b64 = $_POST['base64'];
+        $s = base64_decode($b64);
+        $img_path = './image/'.md5($s).'.jpg';
+        file_put_contents($img_path, $s,LOCK_EX);
+    }else{
+        $s = file_get_contents($_FILES["file"]["tmp_name"]);
+        $img_path = './image/'.md5($s).'.jpg';
+        file_put_contents($img_path, $s,LOCK_EX);
+    }
+    $url='http://'.$_SERVER['SERVER_NAME'].str_replace("/test.php","",$_SERVER["REQUEST_URI"]).str_replace("./","/",$img_path);
+
+
     $res = getCurl("https://cli.im/apis/up/deqrimg","img=".urlencode($url));
     $obj = json_decode($res);
     $text = $obj->info->data[0];
