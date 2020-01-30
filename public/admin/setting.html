@@ -139,7 +139,7 @@
                                     $('#wximg').attr('src', "enQrcode?url="+data.data);
                                     layer.msg('处理成功');
                                 } else{
-                                    return layer.msg('处理失败');
+                                    return layer.alert('处理失败，可以尝试将二维码用草料识别出内容，然后重新将内容生成二维码图片上传！');
                                 }
 
                             });
@@ -205,7 +205,8 @@
                                     $('#zfbimg').attr('src', "enQrcode?url="+data.data);
                                     layer.msg('处理成功');
                                 } else{
-                                    return layer.msg('处理失败');
+                                    return layer.alert('处理失败，可以尝试将二维码用草料识别出内容，然后重新将内容生成二维码图片上传！');
+、
                                 }
 
                             });

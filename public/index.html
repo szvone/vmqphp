@@ -89,12 +89,17 @@
 
 <script>
 	function login() {
-		$.post("login","user="+$("#user").val()+"&pass="+$("#pass").val(),function (data) {
-			layer.msg(data.msg);
-			if (data.code==1){
-				window.location.href = "aaa.html";
-			}
-		});
+		try {
+			$.post("login","user="+$("#user").val()+"&pass="+$("#pass").val(),function (data) {
+				layer.msg(data.msg);
+				if (data.code==1){
+					window.location.href = "aaa.html";
+				}
+			});
+		}catch (e) {
+			layer.alert("程序出错，请检查：<br>1、伪静态是否设置成功<br>2、是否设置好数据库账号密码并导入数据库脚本")
+		}
+
 	}
 </script>
 </body>
