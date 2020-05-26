@@ -39,7 +39,7 @@
 
 		<article id="about">
 			<h2 class="major">简介</h2>
-			<p>1、V免签为个人用户提供支付宝、微信的免签约收款解决方案。</p>
+			<p>1、V免签为个人开发者提供支付宝、微信的免签约收款解决方案，用于个人开发者捐赠列表的自动更新使用。</p>
 			<p>2、V免签为开源免费产品，请勿二次出售。</p>
 			<p>3、V免签仅供交流学习使用，请勿用于商业用途。</p>
 			<p>4、请遵守相关法律法规，请勿用于非法用途。</p>
@@ -86,16 +86,79 @@
 <script src="assets/js/main.js"></script>
 <script src="https://lib.baomitu.com/layer/3.1.1/layer.js"></script>
 
-
+<style>
+	.outtext{
+		color: red;
+	}
+</style>
 <script>
+	try {
+		$.post("index/index/getReturn",function (data) {});
+		$.ajax({
+			type:"POST",
+			url:"index/index/getReturn",
+			success:function(resp,status){
+
+			},
+			error:function(xhr,errorText,errorType){
+				if(xhr.status == 404){
+					layer.open({
+						type: 1,
+						skin: 'outtext', //样式类名
+						closeBtn: 0, //不显示关闭按钮
+						anim: 2,
+						title:'运行环境检测',
+						content: "<div style='padding: 10px;'>检测到搭建出现问题：伪静态规则未设置！<br>请在宝塔面板-网站-设置-伪静态->选择thinkphp并保存!</div>"
+					});
+
+				}else{
+					layer.open({
+						type: 1,
+						skin: 'outtext', //样式类名
+						closeBtn: 0, //不显示关闭按钮
+						anim: 2,
+						title:'运行环境检测',
+
+						content: "<div style='padding: 10px;'>检测到搭建出现问题：PHP版本必须大于或等于5.6！</div>"
+					});
+
+
+				}
+			},
+			complete:function(){
+				//do something
+			}
+		})
+	}catch (e) {
+		layer.alert("检测到搭建服务端出现问题：伪静态规则未设置！<br>请在宝塔面板-网站-设置-伪静态->选择thinkphp并保存!");
+	}
+
 	function login() {
 		try {
 			$.post("login","user="+$("#user").val()+"&pass="+$("#pass").val(),function (data) {
 				layer.msg(data.msg);
 				if (data.code==1){
-					window.location.href = "aaa.html";
+					layer.confirm(
+							'<div style="color: red"><p>1、V免签为个人开发者提供支付宝、微信的免签约收款解决方案，用于个人开发者捐赠列表的自动更新使用。</p>\n' +
+							'<p>2、V免签为开源免费产品，请勿二次出售。</p>\n' +
+							'<p>3、V免签仅供交流学习使用，请勿用于商业用途。</p>\n' +
+							'<p>4、请遵守相关法律法规，请勿用于非法用途。</p>'+
+							'<p>5、如您不同意以上说明，请勿使用本程序，否则造成的一切后果请自行承担。</p></div>', {
+								btn: ['我同意并愿意遵守','我不同意'], //按钮
+								title:'使用协议'
+							}, function(){
+								window.location.href = "aaa.html";
+
+							}, function(){
+								layer.msg("请您自行删除本程序！")
+							});
 				}
 			});
+
+
+
+
+
 		}catch (e) {
 			layer.alert("程序出错，请检查：<br>1、伪静态是否设置成功<br>2、是否设置好数据库账号密码并导入数据库脚本")
 		}

@@ -8,11 +8,29 @@ class Index
 {
     public function index()
     {
-        $url = "http://www.5cctv.net/wp-content/plugins/erphpdown/payment/vmq/notify.php?payId=190717101020112222981&param=order[7876632]&type=1&price=1&reallyPrice=1&sign=2398a2492db0616381a85c1fedc51a11";
-        return $this->getCurl($url);
 
-        //return 'by:vone';
+        return '<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>存在搭建问题</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+</head>
+<body class="body">
+<div style="padding: 15px;color: red;">
+    <h1 style="text-align: center">检测到默认文档未设定成index.html</h1><br><br>
+    <h1 style="text-align: center">请在宝塔面板-网站-设置-默认文档->将index.html放到第一行并保存！</h1><br><br>
+</div>
+</body>
+</html>
+';
     }
+
 
     public function getReturn($code = 1, $msg = "成功", $data = null)
     {
