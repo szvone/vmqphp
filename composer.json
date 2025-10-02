@@ -1,36 +1,25 @@
 {
-    "name": "topthink/think",
-    "description": "the new thinkphp framework",
-    "type": "project",
-    "keywords": [
-        "framework",
-        "thinkphp",
-        "ORM"
-    ],
-    "homepage": "http://thinkphp.cn/",
-    "license": "Apache-2.0",
-    "authors": [
-        {
-            "name": "liu21st",
-            "email": "liu21st@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.6.0",
-        "topthink/framework": "5.1.*",
-        "endroid/qrcode": "^2.5",
-        "endroid/qr-code": "^2.5",
-        "khanamiryan/qrcode-detector-decoder": "^1.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "app\\": "application"
-        }
-    },
-    "extra": {
-        "think-path": "thinkphp"
-    },
-    "config": {
-        "preferred-install": "dist"
+  "name": "gbtc007/vmqphp",
+  "description": "vmqphp migrated to ThinkPHP 6.x with PHP 8+ compatibility",
+  "type": "project",
+  "require": {
+    "php": ">=8.1",
+    "topthink/framework": "^6.1",
+    "topthink/think-view": "^3.0",
+    "topthink/think-multi-app": "^1.0",
+    "topthink/think-captcha": "^3.0"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.10",
+    "phpcompatibility/php-compatibility": "dev-develop"
+  },
+  "autoload": {
+    "psr-4": {
+      "app\\": "app/"
     }
+  },
+  "scripts": {
+    "start": "php think run",
+    "lint:php8": "phpcs -p --standard=PHPCompatibility --runtime-set testVersion 8.1- --ignore=vendor/* ."
+  }
 }
