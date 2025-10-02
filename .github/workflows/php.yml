@@ -1,0 +1,13 @@
+name: php-compat
+on: [push, pull_request]
+jobs:
+  compat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+      - run: composer install --no-interaction
+      - run: composer run lint:php8

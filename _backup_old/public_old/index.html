@@ -1,0 +1,169 @@
+
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	<title>V免签</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta charset="utf-8" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="bookmark" href="favicon.ico" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body>
+<div id="wrapper">
+
+	<header id="header">
+		<div class="logo">
+			<span class="icon fa-rmb"></span>
+		</div>
+		<div class="content">
+			<div class="inner">
+				<h1>V免签</h1>
+
+				<p>个人用户收款解决方案</p>
+			</div>
+		</div>
+		<nav>
+			<ul>
+				<li><a href="#login">登录</a></li>
+				<li><a href="#about">简介</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<div id="main">
+
+		<article id="about">
+			<h2 class="major">简介</h2>
+			<p>1、V免签为个人开发者提供支付宝、微信的免签约收款解决方案，用于个人开发者捐赠列表的自动更新使用。</p>
+			<p>2、V免签为开源免费产品，请勿二次出售。</p>
+			<p>3、V免签仅供交流学习使用，请勿用于商业用途。</p>
+			<p>4、请遵守相关法律法规，请勿用于非法用途。</p>
+			<p><input type="submit" value="获取V免签" class="" onclick="window.location.href='https://github.com/szvone/vmqphp'"/></p>
+		</article>
+
+
+		<article id="login">
+			<h2 class="major">登录</h2>
+			<form method="post" action="javascript:login();">
+				<div class="field half first">
+					<label for="user">账号</label>
+					<input type="text" name="user" id="user" />
+				</div>
+				<div class="field half">
+					<label for="pass">密码</label>
+					<input type="password" name="pass" id="pass" />
+				</div>
+
+				<ul class="actions">
+					<li><input id="login2" type="submit" value="登录" class="special" /></li>
+					<li><input type="reset" value="清空" /></li>
+				</ul>
+			</form>
+			<br>
+			<div id="result" role="dialog">
+				<p color class="h5 margin-top-sm text-black-hint" id="msg"></p>
+			</div>
+		</article>
+
+	</div>
+
+	<footer id="footer">
+		<p class="copyright">&copy;2019 V免签</p>
+	</footer>
+
+</div>
+
+<div id="bg"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.3"></script>
+<script src="https://cdn.jsdelivr.net/gh/ajlkn/skel@3.0.1/dist/skel.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="https://lib.baomitu.com/layer/3.1.1/layer.js"></script>
+
+<style>
+	.outtext{
+		color: red;
+	}
+</style>
+<script>
+	try {
+		$.post("index/index/getReturn",function (data) {});
+		$.ajax({
+			type:"POST",
+			url:"index/index/getReturn",
+			success:function(resp,status){
+
+			},
+			error:function(xhr,errorText,errorType){
+				if(xhr.status == 404){
+					layer.open({
+						type: 1,
+						skin: 'outtext', //样式类名
+						closeBtn: 0, //不显示关闭按钮
+						anim: 2,
+						title:'运行环境检测',
+						content: "<div style='padding: 10px;'>检测到搭建出现问题：伪静态规则未设置！<br>请在宝塔面板-网站-设置-伪静态->选择thinkphp并保存!</div>"
+					});
+
+				}else{
+					layer.open({
+						type: 1,
+						skin: 'outtext', //样式类名
+						closeBtn: 0, //不显示关闭按钮
+						anim: 2,
+						title:'运行环境检测',
+
+						content: "<div style='padding: 10px;'>检测到搭建出现问题：PHP版本必须大于或等于5.6！</div>"
+					});
+
+
+				}
+			},
+			complete:function(){
+				//do something
+			}
+		})
+	}catch (e) {
+		layer.alert("检测到搭建服务端出现问题：伪静态规则未设置！<br>请在宝塔面板-网站-设置-伪静态->选择thinkphp并保存!");
+	}
+
+	function login() {
+		try {
+			$.post("login","user="+$("#user").val()+"&pass="+$("#pass").val(),function (data) {
+				layer.msg(data.msg);
+				if (data.code==1){
+					layer.confirm(
+							'<div style="color: red"><p>1、V免签为个人开发者提供支付宝、微信的免签约收款解决方案，用于个人开发者捐赠列表的自动更新使用。</p>\n' +
+							'<p>2、V免签为开源免费产品，请勿二次出售。</p>\n' +
+							'<p>3、V免签仅供交流学习使用，请勿用于商业用途。</p>\n' +
+							'<p>4、请遵守相关法律法规，请勿用于非法用途。</p>'+
+							'<p>5、如您不同意以上说明，请勿使用本程序，否则造成的一切后果请自行承担。</p></div>', {
+								btn: ['我同意并愿意遵守','我不同意'], //按钮
+								title:'使用协议'
+							}, function(){
+								window.location.href = "aaa.html";
+
+							}, function(){
+								layer.msg("请您自行删除本程序！")
+							});
+				}
+			});
+
+
+
+
+
+		}catch (e) {
+			layer.alert("程序出错，请检查：<br>1、伪静态是否设置成功<br>2、是否设置好数据库账号密码并导入数据库脚本")
+		}
+
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="vmqphp-php8">
+  <file>app</file>
+  <file>route</file>
+  <arg name="basepath" value="."/>
+  <rule ref="PHPCompatibility">
+    <exclude name="PHPCompatibility.Extensions.RemovedExtensions"/>
+  </rule>
+  <config name="testVersion" value="8.1-"/>
+</ruleset>
