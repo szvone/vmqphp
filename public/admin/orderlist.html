@@ -13,6 +13,17 @@
         </div>
     </div>
     <div class="layui-inline">
+        <label class="layui-form-label">收支</label>
+        <div class="layui-input-inline">
+            <select id="io" lay-verify="required" lay-filter="io">
+                <option value="">不限制</option>
+                <option value="1">收入</option>
+                <option value="2">支出</option>
+
+            </select>
+        </div>
+    </div>
+    <div class="layui-inline">
         <label class="layui-form-label">订单状态</label>
         <div class="layui-input-inline">
             <select id="state" lay-verify="required" lay-filter="state">
@@ -40,7 +51,9 @@
 <table id="demo" lay-filter="test"></table>
 
 <script type="text/html" id="barDemo">
+    {{# if(d.io != 2){ }}
     <a class="layui-btn layui-btn-xs" lay-event="bd">补单</a>
+    {{# } }}
     <a class="layui-btn layui-btn-xs" lay-event="info">详情</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 
@@ -75,7 +88,7 @@
             ,toolbar: '#toolbarDemo'
             ,where: {
                 state:$("#state").val(),
-                type:$("#type").val()
+                type:$("#type").val(), io:$("#io").val()
             }
             ,cols: [[ //表头
                 {field: 'create_date', title: '创建时间',minWidth:160,templet: function(d){
@@ -89,6 +102,14 @@
                             return '微信';
                         }else if (d.type=="2"){
                             return '支付宝';
+                        }
+                    }
+                },
+                {field: 'io', title: '收支',minWidth:80, align:'center',templet: function(d){
+                        if (d.io=="2"){
+                            return '<span style="color: orange">支出</span>';
+                        }else{
+                            return '<span style="color: green">收入</span>';
                         }
                     }
                 },
@@ -123,6 +144,7 @@
                 var out = "<p>创建时间："+formatDate(data.create_date)+"</p>";
                 out += "<p>支付时间："+formatDate(data.pay_date)+"</p>";
                 out += "<p>关闭时间："+formatDate(data.close_date)+"</p>";
+                out += "<p>收支："+(data.io=="2"?"支出":"收入")+"</p>";
                 out += "<p>自定义参数："+data.param+"</p>";
                 layer.alert(out);
 
@@ -139,7 +161,7 @@
                             myTable.reload({
                                 where: {
                                     state:$("#state").val(),
-                                    type:$("#type").val()
+                                    type:$("#type").val(), io:$("#io").val()
                                 }
                             });
                         }else if(data.code==-2){
@@ -173,7 +195,7 @@
                             myTable.reload({
                                 where: {
                                     state:$("#state").val(),
-                                    type:$("#type").val()
+                                    type:$("#type").val(), io:$("#io").val()
                                 }
                             });
                         }else{
@@ -192,7 +214,7 @@
             myTable.reload({
                 where: {
                     state:$("#state").val(),
-                    type:$("#type").val()
+                    type:$("#type").val(), io:$("#io").val()
                 }
             });
 
@@ -202,7 +224,17 @@
             myTable.reload({
                 where: {
                     state:$("#state").val(),
-                    type:$("#type").val()
+                    type:$("#type").val(), io:$("#io").val()
+                }
+            });
+
+        });
+
+        form.on('select(io)', function(data){
+            myTable.reload({
+                where: {
+                    state:$("#state").val(),
+                    type:$("#type").val(), io:$("#io").val()
                 }
             });
 
@@ -226,7 +258,7 @@
                                 myTable.reload({
                                     where: {
                                         state:$("#state").val(),
-                                        type:$("#type").val()
+                                        type:$("#type").val(), io:$("#io").val()
                                     }
                                 });
                             }else{
@@ -251,7 +283,7 @@
                                 myTable.reload({
                                     where: {
                                         state:$("#state").val(),
-                                        type:$("#type").val()
+                                        type:$("#type").val(), io:$("#io").val()
                                     }
                                 });
                             }else{

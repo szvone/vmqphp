@@ -271,7 +271,8 @@ class Index
             "really_price" => $reallyPrice,
             "return_url" => $return_url,
             "state" => 0,
-            "type" => $type
+            "type" => $type,
+            "io" => 1
 
         );
 
@@ -454,11 +455,22 @@ class Index
         $t = input("t");
         $type = input("type");
         $price = input("price");
+        $io = input("io");
 
-        $_sign = $type.$price.$t.$key;
+        // 兼容旧版监控端（无 io 参数按收入处理）
+        if ($io === null || $io === ""){
+            $io = 1;
+            $_sign = $type.$price.$t.$key;
+        } else {
+            $_sign = $type.$price.$io.$t.$key;
+        }
 
         if (md5($_sign)!=input("sign")){
             return json($this->getReturn(-1, "签名校验不通过"));
+        }
+
+        if ($io != 1 && $io != 2){
+            return json($this->getReturn(-1, "收支类型错误=>1|收入 2|支出"));
         }
 
 //        $jg = time()*1000 - $t;
@@ -466,6 +478,32 @@ class Index
 //            return json($this->getReturn(-1, "客户端时间错误"));
 //        }
 
+        // 支出：只记录，不匹配待支付订单、不触发异步通知
+        if ($io == 2){
+            $data = array(
+                "close_date" => 0,
+                "create_date" => time(),
+                "is_auto" => 0,
+                "notify_url" => "",
+                "order_id" => "无订单支出",
+                "param" => "无订单支出",
+                "pay_date" => time(),
+                "pay_id" => "无订单支出",
+                "pay_url" => "",
+                "price" => $price,
+                "really_price" => $price,
+                "return_url" => "",
+                "state" => 1,
+                "type" => $type,
+                "io" => 2
+
+            );
+
+            Db::name("pay_order")->insert($data);
+            return json($this->getReturn());
+        }
+
+        // 收入：更新最后收款时间
         Db::name("setting")
             ->where("vkey","lastpay")
             ->update(
@@ -532,7 +570,8 @@ class Index
                 "really_price" => $price,
                 "return_url" => "",
                 "state" => 1,
-                "type" => $type
+                "type" => $type,
+                "io" => 1
 
             );
 

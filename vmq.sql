@@ -43,7 +43,8 @@ CREATE TABLE `pay_order` (
   `really_price` double NOT NULL,
   `return_url` varchar(255) DEFAULT NULL,
   `state` int(11) NOT NULL,
-  `type` int(11) NOT NULL
+  `type` int(11) NOT NULL,
+  `io` int(11) NOT NULL DEFAULT 1
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
